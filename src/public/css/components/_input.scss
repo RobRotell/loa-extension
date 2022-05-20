@@ -1,0 +1,20 @@
+.input,
+.select {
+	height: remCalc( 50 );
+	margin-bottom: remCalc( 12 );
+	padding: remCalc( 12 ) remCalc( 18 );
+	font-size: remCalc( 16 );
+	color: $colorGray;
+	background-color: $colorGrayLight;
+	border: 1px solid $colorGrayLight;
+	transition: background-color .2s;
+}
+
+.input {
+	&:focus,
+	&:active,
+	&:not(:placeholder-shown) {
+		background-color: white;
+		border: 1px solid $colorGray;
+	}
+}

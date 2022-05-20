@@ -1,0 +1,38 @@
+.article {
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: remCalc( 24 );
+
+	&__input {
+		flex: 1 0 100%;
+	}
+
+	&__select {
+		flex-grow: 1;
+	}
+
+	&__submit {
+		width: remCalc( 50 );
+		margin-left: remCalc( 12 );
+
+		&__icon {
+			position: relative;
+
+			&:before,
+			&:after {
+				content: '';
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate( -50%, -50% );
+				width: remCalc( 3 );
+				height: remCalc( 14 );
+				background-color: white;
+			}
+
+			&:after {
+				transform: translate( -50%, -50% ) rotateZ( 90deg );
+			}
+		}
+	}
+}

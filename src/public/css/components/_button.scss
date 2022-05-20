@@ -1,0 +1,12 @@
+.btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: remCalc( 50 );
+	background-color: $colorGreen;
+	transition: background-color .2s;
+	
+	&:hover {
+		background-color: $colorGreenLight;
+	}
+}

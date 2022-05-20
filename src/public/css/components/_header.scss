@@ -1,0 +1,36 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	height: remCalc( 50 );
+	margin-bottom: remCalc( 24 );
+
+	&__link,
+	&__login {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: remCalc( 60 );
+	}
+
+	&__link {
+		text-decoration: none;
+
+		&__logo {
+			display: block;
+		}
+	}
+
+	&__login {
+		background-color: $colorYellow;
+
+		&--authorized {
+			background-color: $colorGreenLight;
+		}
+
+		&__icon {
+			width: remCalc( 24 );
+			fill: white;
+		}
+	}
+
+}
