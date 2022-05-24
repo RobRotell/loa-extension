@@ -1,0 +1,22 @@
+.notice { 
+	padding: remCalc( 16 ) remCalc( 20 );
+	font-weight: $fontBold;
+	color: white;
+
+	&--working {
+		background-color: $colorTeal;
+	}
+
+	&--warning {
+		background-color: $colorYellow;
+	}
+
+	&--error {
+		background-color: $colorRed;
+	}
+
+	&--success {
+		background-color: $colorGreen;
+	}
+
+}

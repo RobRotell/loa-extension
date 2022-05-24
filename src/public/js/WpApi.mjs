@@ -4,7 +4,7 @@ const WpApi = {
 	endpointUrl: 'https://vril.robr.app/wp-json/loa/v3',
 
 
-	async fetch( action, rawParams, method = 'GET' ) {
+	async fetch( action, rawParams, method = 'GET', username = '', authToken = ''  ) {
 		const options = {}
 		const headers = new Headers
 
@@ -60,7 +60,29 @@ const WpApi = {
 		const data = await this.fetch( 'tags' )
 
 		return data.tags
-	},	
+	},
+
+
+
+
+	/**
+	 * Get authorization password from WP
+	 * 
+	 * @param	{string}	username 	WP account username
+	 * @param 	{string} 	password 	WP account password
+	 * 
+	 * @return	{obj}
+	 */
+	async getAuthPassword( username = '', password = '' ) {
+		const params = new URLSearchParams()
+
+		params.set( 'username', username )
+		params.set( 'password', password )
+
+		const { auth_token } = await this.fetch( 'auth-token', params, 'POST' )
+		
+		return auth_token
+	},
 
 }
 
