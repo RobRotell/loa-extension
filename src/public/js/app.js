@@ -1,38 +1,49 @@
 import WpApi from './WpApi.mjs'
+import StorageApi from './StorageApi.mjs'
 import { validateUrl } from './Helpers.mjs'
 
 
+
 ( () => {
-
-	window.bob = {}
-
-
-	const endpointUrl = 'https://vril.robr.app/wp-json/loa/v3'
 
 
 	document.addEventListener( 'alpine:init', () => {
 		
 		Alpine.store( 'loa', {
 		
-			loginFormExpanded: false,
-			isLoggedIn: false,
-			isLoggingIn: false,
-			isSubmittingUrl: false,
+			loginFormExpanded: 	false,
+			isLoggedIn:			null, // this.checkIfLoggedIn,
+			isLoggingIn: 		false,
+			isSubmittingUrl: 	false,
 		
 			username: '',
 			password: '',
 		
-			url: '',
-			tagId: null,
+			url: 	'',
+			tagId: 	null,
 
 			notice: {
-				class: '',
-				text: '',
+				class:	'',
+				text: 	'',
+			},
+
+			fire() {
+				console.log( 'run' )
 			},
 
 
 			async getTags() {
-				return await WpApi.getTags()
+				let tags = StorageApi.tags
+
+				if( null === tags ) {
+					tags = await WpApi.getTags()
+
+					if( tags && tags.length ) {
+						StorageApi.tags = tags	
+					}
+				}
+
+				return Array.isArray( tags ) ? tags : []
 			},
 		
 
@@ -60,10 +71,15 @@ import { validateUrl } from './Helpers.mjs'
 					return
 				}
 
+				this.isLoggingIn = true
+
 				WpApi
 					.getAuthPassword( this.username, this.password )
 					.then( authToken => {
-						console.log( authToken )
+						StorageApi.setAuthCreds( this.username, authToken )
+						this.password	= '********'
+						this.isLoggedIn = true
+						this.showSuccess( 'Successfully logged in!' )
 
 					}).catch( err => {
 						console.log( err )
@@ -72,6 +88,17 @@ import { validateUrl } from './Helpers.mjs'
 					}).finally( () => {
 						this.isLoggingIn = false
 					})
+			},
+
+
+			checkIfLoggedIn() {
+				const auth = StorageApi.auth
+
+				if( auth && 'object' === typeof auth ) {
+					const { username = '', authToken = '' } = auth
+
+					this.isLoggedIn = username.length && authToken.length
+				}
 			},
 
 

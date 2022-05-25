@@ -57,9 +57,9 @@ const WpApi = {
 
 
 	async getTags() {
-		const data = await this.fetch( 'tags' )
+		const { tags } = await this.fetch( 'tags' )
 
-		return data.tags
+		return tags
 	},
 
 

@@ -39,7 +39,8 @@
 			</header>
 
 			<form 
-				x-bind:class="loginFormExpanded ? 'login--expanded' : ''"
+				x-init="checkIfLoggedIn"
+				x-bind:class="( loginFormExpanded && !isLoggedIn ) ? 'login--expanded' : ''"
 				class="login"
 			>
 				<input 
