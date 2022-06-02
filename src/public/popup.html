@@ -25,7 +25,7 @@
 				</a>
 
 				<button 
-					x-bind:class="isLoggedIn ? 'header__login--logged-in' : ''"
+					x-bind:class="isLoggedIn ? 'header__login--authorized' : ''"
 					@click="loginFormExpanded = !loginFormExpanded"
 					class="header__login"
 				>
@@ -37,31 +37,6 @@
 					</svg>
 				</button>
 			</header>
-
-			<form 
-				x-init="checkIfLoggedIn"
-				x-bind:class="( loginFormExpanded && !isLoggedIn ) ? 'login--expanded' : ''"
-				class="login"
-			>
-				<input 
-					x-model="username"
-					class="input input--text login__username" 
-					type="text" 
-					placeholder="Username" 
-				/>
-				<input 
-					x-model="password"
-					class="input input--password login__password" 
-					type="password" 
-					placeholder="Password" 
-				/>
-				<button 
-					@click="handleLoginSubmit"
-					class="btn login__submit"
-				>
-					<i class="icon login__submit__icon"></i>
-				</button>
-			</form>
 
 			<form class="article">
 				<input 
@@ -92,6 +67,32 @@
 					<i class="icon article__submit__icon"></i>
 				</button>
 			</form>
+
+			<form 
+				x-init="checkIfLoggedIn"
+				x-bind:class="( loginFormExpanded && !isLoggedIn ) ? 'login--expanded' : ''"
+				class="login"
+			>
+				<input 
+					x-model="username"
+					class="input input--text login__username" 
+					type="text" 
+					placeholder="Username" 
+				/>
+				<input 
+					x-model="password"
+					class="input input--password login__password" 
+					type="password" 
+					placeholder="Password" 
+				/>
+				<button 
+					@click="handleLoginSubmit"
+					x-bind:class="isLoggingIn ? 'login__submit--logging-in' : ''"
+					class="btn login__submit"
+				>
+					<i class="icon login__submit__icon"></i>
+				</button>
+			</form>			
 
 			<aside 
 				x-show="notice.text.length"

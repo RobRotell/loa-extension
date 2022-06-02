@@ -27,10 +27,6 @@ import { validateUrl } from './Helpers.mjs'
 				text: 	'',
 			},
 
-			fire() {
-				console.log( 'run' )
-			},
-
 
 			async getTags() {
 				let tags = StorageApi.tags
@@ -79,7 +75,7 @@ import { validateUrl } from './Helpers.mjs'
 						StorageApi.setAuthCreds( this.username, authToken )
 						this.password	= '********'
 						this.isLoggedIn = true
-						this.showSuccess( 'Successfully logged in!' )
+						this.showSuccess( 'Successfully logged in!', 2000 )
 
 					}).catch( err => {
 						console.log( err )
@@ -97,7 +93,7 @@ import { validateUrl } from './Helpers.mjs'
 				if( auth && 'object' === typeof auth ) {
 					const { username = '', authToken = '' } = auth
 
-					this.isLoggedIn = username.length && authToken.length
+					this.isLoggedIn = !!( username.length && authToken.length )
 				}
 			},
 
@@ -109,24 +105,32 @@ import { validateUrl } from './Helpers.mjs'
 			},
 
 
-			showWarning( warning ) {
-				this.populateNotice( warning, 'warning' )
+			showWarning( warning, duration ) {
+				this.populateNotice( warning, 'warning', duration )
 			},
 
 
-			showError( err ) {
-				this.populateNotice( err, 'error' )
+			showError( err, duration ) {
+				this.populateNotice( err, 'error', duration )
 			},
 
 
-			showSuccess( msg ) {
-				this.populateNotice( msg, 'success' )
+			showSuccess( msg, duration ) {
+				this.populateNotice( msg, 'success', duration )
 			},
 			
 
-			populateNotice( msg, className ) {
+			populateNotice( msg, className, duration = 0 ) {
 				this.notice.class	= `notice--${className}`
 				this.notice.text	= msg
+
+				if( !isNaN( duration ) && 0 < duration ) {
+					setTimeout( () => {
+						this.notice.class = `${this.notice.class} notice--fadeout`
+
+						setTimeout( () => this.resetNotice(), 750 )
+					}, duration )
+				}
 			},
 
 			

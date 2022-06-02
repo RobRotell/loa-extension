@@ -19,4 +19,16 @@
 		background-color: $colorGreen;
 	}
 
+	&--fadeout {
+		animation: noticeFadeout 0.375s forwards;
+	}
+
+}
+
+
+@keyframes noticeFadeout {
+	100% {
+		color: white;
+		background-color: white;
+	}
 }

@@ -5,7 +5,7 @@ const StorageApi = {
 	keyArticles:	'loa_articles',
 	keyTags:		'loa_tags',
 
-	canUseStorage: 	null,
+	useStorageTest:	null,
 
 
 	/**
@@ -121,20 +121,20 @@ const StorageApi = {
 	 * @return	{bool} True if available
 	 */
 	canUseStorage() {
-		if( 'boolean' !== typeof this.canUseStorage ) {
+		if( 'boolean' !== typeof this.useStorageTest ) {
 			try {
 				const test = '_loa_test_'
 				window.localStorage.setItem( test, test )
 				window.localStorage.removeItem( test, test )
 
-				this.canUseStorage = true
+				this.useStorageTest = true
 
 			} catch ( err ) {
-				this.canUseStorage = false
+				this.useStorageTest = false
 			}
 		}
 
-		return this.canUseStorage
+		return this.useStorageTest
 	},
 
 
